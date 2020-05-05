@@ -1,0 +1,19 @@
+name: "Spatial Count Model"
+output_dir: "docs"
+navbar:
+  title: "Spatial Count Model (SC) Results"
+  left:
+  - text: "Home"
+    href: index.html
+  - text: "2016"
+    href: results2016.html
+  - text: "2017"
+    href: results2017.html
+  - text: "2018"
+    href: results2018.html
+  - text: "2019"
+    href: results2019.html
+output:
+  html_document:
+    theme: cosmo
+

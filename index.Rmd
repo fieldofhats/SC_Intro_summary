@@ -1,0 +1,195 @@
+---
+title: " "
+output: 
+  html_document
+---
+```{r include=F}
+
+if (!require(RColorBrewer)){
+  install.packages('RColorBrewer')
+  require(RColorBrewer)
+}
+
+if (!require(wesanderson)){
+  install.packages('wesanderson')
+  require(wesanderson)
+}
+
+if (!require(tidyverse)){
+  install.packages('tidyverse')
+  require(tidyverse)
+}
+
+if (!require(lubridate)){
+  install.packages('lubridate')
+  require(lubridate)
+}
+
+library(knitr)
+library(kableExtra)
+library(gridExtra)
+```
+
+<br><br><br><br><br><br/>
+
+
+[Back to models/plots](https://fieldofhats.github.io/MesoResultsHomePage/ )
+
+### SC model
+
+<br>
+
+#### year tabs, SC model summaries (- stand by for results)
+
+<br>
+
+### links to model selection by year:
+
+[2016 model selection - stand by](https://fieldofhats.github.io/SC_model_2016/ )
+
+[2017 model selection - stand by](https://fieldofhats.github.io/SC_model_2017/ )
+
+[2018 model selection](https://fieldofhats.github.io/SC_model_2018/)
+
+[2019 model selection](https://fieldofhats.github.io/SC_model_2019/ )
+
+<br><br/>
+carnivore detections by survey season:
+```{r echo=F, warnings = F}
+#################### detections by sp table:
+detections<-read.table('./data/carnivorDetections2016to2019.txt', stringsAsFactors = F)
+detection.mat<-as.matrix(detections[,-1], nrow = 4)
+row.names(detection.mat)<-detections$data.year
+detection.mat<-t(detection.mat)
+
+kable(detection.mat) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+
+<br><br/>
+
+```{r, include = F}
+########################
+### plot operational days
+###################
+#### Custom wes_palette function
+###  pal = a custom vector of colors, eg a wes pallet in a new order
+## continuous will interpolate n2 colors in a new palette
+## discrete will output collors n1 - n2 in the vector 
+stretch.pal<-function (pal, name, n1 = 1,n2, type = c("discrete", "continuous")) 
+{
+  type <- match.arg(type)
+  pal <- pal
+  if (is.null(pal)) 
+    stop("Palette not found.")
+  if (missing(n2)) {
+    n2 <- length(pal)
+  }
+  if (type == "discrete" && n2 > length(pal)) {
+    stop("Number of requested colors greater than what palette can offer")
+  }
+  out <- switch(type, continuous = (grDevices::colorRampPalette(pal))(n2), 
+                discrete = pal[n1:n2])
+  structure(out, class = "palette", name = name)
+}
+
+### Plot operational dates:
+pal <- wes_palette(10, name = "Darjeeling1", type = "continuous")
+
+# image(volcano, col = pal)
+# pal1<- wes_palette(10, name = "IsleofDogs1", type = "continuous")
+# image(volcano, col = pal1)
+# pal2<- wes_palette(10, name = "IsleofDogs2", type = "continuous")
+# image(volcano, col = pal2)
+
+
+## stretch.pal in functions
+
+
+# pal <- wes_palette(name = "Darjeeling1")[c(1,4,3,2,5)]
+pal <- stretch.pal(n2=10, pal=pal, type = "continuous", name = 'dar.new')
+# pal <- stretch.pal(n1=3, n2=10, pal=pal, type = "discrete", name = 'dar.new')
+# pal <- pal[1:8]
+# image(volcano, col = pal)
+
+
+all.blank<-read.table('./data/2016to2019LongformCarnivors_20200422.txt', stringsAsFactors = F)
+
+plot.blank<-all.blank 
+## strings not factors or problems
+plot.blank<-plot.blank %>%
+  mutate(cells = substring(cell_site, 1,5)) %>%
+  mutate(onDts = ifelse(is.na(count),NA, dtDate), offDts = ifelse(is.na(count) & !is.na(installed), dtDate, NA)) %>% 
+  mutate(onDts = ymd(onDts), offDts = ymd(offDts))
+# plot.blank<-plot.blank %>%
+#   mutate(plot.sp = ifelse(is.na(!!sym(sp) == 0 ) | !!sym(sp) == 0, NA, dtDate)) %>%
+#   mutate(plot.sp =ymd(plot.sp))
+
+plot.blank<-plot.blank %>% 
+  mutate(lure.day = ifelse(lureDays != 0 | is.na(lureDays), NA, dtDate)) %>% 
+  mutate(lure.day = ymd(lure.day))
+## View (plot.blank)
+
+
+```
+
+
+
+
+```{r, include = F, as.is = T, message = F}
+years=unique(plot.blank$data.year)
+#bl.plot <- plot.blank
+plot.list<-list()
+for(i in 1 : length(years) ){
+  bl.plot<-plot.blank %>% filter(data.year == years[i])
+  installed.days<-sum(bl.plot$installed, na.rm = T)
+  op.days<-sum(!is.na(bl.plot$count))
+  bl<-ggplot(data = bl.plot, aes(y=factor(year_cell_site)))
+  plot.list[[years[i]]]<- bl + geom_path(aes(x=offDts), size = 1) +
+    geom_path(aes(x=onDts), color = pal[2], size = 2) +
+    geom_point(aes(x=lure.day), shape = 21, fill = pal[3], size = 2) +
+    xlab('date') + ylab('year_cell_site') + 
+    ggtitle(paste0('days intalled:  ',installed.days, '     operational days:  ', op.days, '   op/installed:  ', round(op.days/installed.days, 2)))
+}
+
+```
+
+
+
+#### camera operational days by year
+
+
+##  {.tabset}
+
+### `r in.yr<-years[[1]]; in.yr`
+
+```{r, echo=F, message=F, warning=F}
+plot.list[[in.yr]]
+```
+
+### `r in.yr<-years[[2]]; in.yr`
+
+```{r, echo=F, message=F, warning=F}
+plot.list[[in.yr]]
+```
+
+### `r in.yr<-years[[3]]; in.yr`
+
+```{r, echo=F, message=F, warning=F}
+plot.list[[in.yr]]
+```
+
+### `r in.yr<-years[[4]]; in.yr`
+
+```{r, echo=F, message=F, warning=F}
+plot.list[[in.yr]]
+```
+
+# {-}
+
+
+
+
+
