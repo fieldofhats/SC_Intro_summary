@@ -6,13 +6,13 @@ navbar:
   - text: "Home"
     href: index.html
   - text: "2016"
-    href: results2016.html
+    href: CovDensitySum2016.html
   - text: "2017"
-    href: results2017.html
+    href: CovDensitySum2017.html
   - text: "2018"
-    href: results2018.html
+    href: CovDensitySum2018.html
   - text: "2019"
-    href: results2019.html
+    href: CovDensitySum2019.html
 output:
   html_document:
     theme: cosmo
