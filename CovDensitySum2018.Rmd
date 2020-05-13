@@ -17,7 +17,7 @@ library(gridExtra)
 library(logspline)
 
 
-in.path<-"./_data/2019"
+in.path<-"./_data/2018"
 in.files<-list.files(in.path)
 file.paths<-file.path(in.path, in.files)
 
@@ -26,7 +26,7 @@ significance.table<-tibble(covs = rep(NA, 6))
 
 ## inline render
 #
-render.file<-'./_CovDensitySum_child.Rmd'
+render.file<-'./_childRmd/_CovDensitySum_child.Rmd'
 
 # join <- function(ls, sep = ", "){
 #     do.call(paste, append(ls, list(sep = sep)))
@@ -113,16 +113,18 @@ kable(models.print,align = 'l') %>%
 ### `r i = 1; species[i]`
 
 ```{r, echo = F}
-#black bear
+## american black bear
+# models.print
+# models.print$model
   in.file <- file.paths[i]
-  sig.models <-  c("sc.fm1")
+  sig.models <-  c("sc.fm1", "sc.fm2.0", "sc.fm2.1", "sc.fm2.2", "sc.fm3.0", "sc.fm4.0")
   support.tab<-tibble(level = c('good', 'moderate', 'poor'),
                     support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
-                    covariates =  c('', 
-                                    '', 
-                                    'lure - snow - temp - pass - snow\\*temp - lure\\*snow'))
+                    covariates =  c('snow', 
+                                    'lure - temp', 
+                                    'pass - snow\\*temp - lure\\*snow'))
   # lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(F,F,F,F,F,F)
+  significance.table[[species[i]]]<-c(T,T,T,F,F,F)
 ```
 ```{r, child = render.file, as.is = T}
 
@@ -133,12 +135,10 @@ kable(models.print,align = 'l') %>%
 **notes:**
 
 *********************************************************************************************************************************
+err in mode due to flat posterior distribution, equal to hdi,
+flat distribution may indicate convergance problem, the model does not seem to like
+black bear detections, ?? hibernation, im/emigration.. ??
 
-lure and snow are on the borderline of significant, but seem to have overall thin support,
-
-suspisious behavior of output distribution of n and density, multiple declining
-
-peaks, not a smooth curve.  could be poor convergence, maybe due to hibernation, seasonal migration..?
 
 ***************************************************************************************************************
 
@@ -147,21 +147,20 @@ peaks, not a smooth curve.  could be poor convergence, maybe due to hibernation,
 
 ### `r i = 2; species[i]`
 
-```{r, echo = F, as.is = T}
-## marten
-  # models.print
+```{r, echo = F}
+## american marten
+# models.print
+# models.print$model
   in.file <- file.paths[i]
-  sig.models <-  c("sc.fm1", "sc.fm2.2")
+  sig.models <-  c("sc.fm1", "sc.fm2.0")
   support.tab<-tibble(level = c('good', 'moderate', 'poor'),
                     support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
-                    covariates =  c('', 
-                                    'temp', 
-                                    'lure - snow  - pass - snow\\*temp - lure\\*snow'))
+                    covariates =  c('lure', 
+                                    '', 
+                                    'snow - temp - pass - snow\\*temp - lure\\*snow'))
   # lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(F,F,T,F,F,F)
-
+  significance.table[[species[i]]]<-c(T,F,F,F,F,F)
 ```
-
 ```{r, child = render.file, as.is = T}
 
 ```
@@ -172,127 +171,17 @@ peaks, not a smooth curve.  could be poor convergence, maybe due to hibernation,
 
 *********************************************************************************************************************************
 
-moderate to small amount of support for temp
+temp, snow and snow*temp do not have consistent support
 
 ***************************************************************************************************************
 
 
 ### `r i = 3; species[i]`
 
-```{r, echo = F, as.is = T}
-## bobcat
-# models.print
-  in.file <- file.paths[i]
-  sig.models <-  c("sc.fm1", 'sc.fm2.3')
-  support.tab<-tibble(level = c('good', 'moderate', 'poor'),
-                    support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
-                    covariates =  c('', 
-                                    'pass', 
-                                    'lure - snow - temp  - snow\\*temp - lure\\*snow'))
-  # lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(F,F,F,T,F,F)
-
-```
-
-```{r, child = render.file, as.is = T}
-
-```
-
-<br><br>
-
-**notes:**
-
-*********************************************************************************************************************************
-Dot model wins, probably further support against pass as a cov
-
-moderate to small amount of support for pass, lure has tiny amount of support lean toward rejecting, very
-
-few detections for multiple covs, 
-
-***************************************************************************************************************
-
-
-
-### `r i = 4; species[i]`
-
-```{r, echo = F, as.is = T}
+```{r, echo = F}
 ## coyote
 # models.print
-  in.file <- file.paths[i]
-  sig.models <-  c("sc.fm1", 'sc.fm2.0', 'sc.fm2.1', 'sc.fm3.0')
-  support.tab<-tibble(level = c('good', 'moderate', 'poor'),
-                    support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
-                    covariates =  c('lure', 
-                                    'snow', 
-                                    'temp - pass - snow\\*temp - lure\\*snow'))
-  # lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(T,T,F,F,F,F)
-
-```
-
-```{r, child = render.file, as.is = T}
-
-```
-
-<br><br>
-
-**notes:**
-
-*********************************************************************************************************************************
-
-
-
-***************************************************************************************************************
-
-
-
-### `r i = 5; species[i]`
-
-```{r, echo = F, as.is = T}
-# long tailed weasal
-# models.print
-  in.file <- file.paths[i]
-  sig.models <-  c("sc.fm1")
-  support.tab<-tibble(level = c('good', 'moderate', 'poor'),
-                    support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
-                    covariates =  c('lure', 
-                                    'snow', 
-                                    'temp - pass - snow\\*temp - lure\\*snow'))
-                                    
-  # lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(F,F,F,F,F,F)
-
-```
-
-```{r, echo = F, as.is = T}
-# ```{r, child = render.file, as.is = T}
-# 
-# ```
-```
-
-
-
-<br><br>
-
-**notes:**
-
-*********************************************************************************************************************************
-model did not converge
-
-maybe a lack of spatial dependance
-
-modeled sigma around .12 km
-
-
-***************************************************************************************************************
-
-
-
-### `r i = 6; species[i]`
-
-```{r, echo = F, as.is = T}
-# red fox
-# models.print
+# models.print$model
   in.file <- file.paths[i]
   sig.models <-  c("sc.fm1")
   support.tab<-tibble(level = c('good', 'moderate', 'poor'),
@@ -302,9 +191,7 @@ modeled sigma around .12 km
                                     'lure - snow - temp - pass - snow\\*temp - lure\\*snow'))
   # lure, snow, temp, pass, snow*temp, lure*snow'
   significance.table[[species[i]]]<-c(F,F,F,F,F,F)
-
 ```
-
 ```{r, child = render.file, as.is = T}
 
 ```
@@ -314,29 +201,57 @@ modeled sigma around .12 km
 **notes:**
 
 *********************************************************************************************************************************
-3 detecions, not much power
+no covariate support..
 
 
-********************************************************************************************************************************
+***************************************************************************************************************
 
 
-### `r i = 7; species[i]`
 
-```{r, echo = F, as.is = T}
-# WTJ
+### `r i = 4; species[i]`
+
+```{r, echo = F}
+## long tailed weasel
 # models.print
+# models.print$model
   in.file <- file.paths[i]
-  sig.models <-  c("sc.fm1", 'sc.fm2.1', 'sc.fm2.2', 'sc.fm5.0')
+  sig.models <-  c("sc.fm1")
   support.tab<-tibble(level = c('good', 'moderate', 'poor'),
                     support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
-                    covariates =  c('snow - temp- snow\\*temp', 
+                    covariates =  c('', 
                                     '', 
-                                    'lure - pass - lure\\*snow'))
-  #                                   lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(F,    T,    T,    F,    T,          F)
-
+                                    'lure - snow - temp - pass - snow\\*temp - lure\\*snow'))
+  # lure, snow, temp, pass, snow*temp, lure*snow'
+  significance.table[[species[i]]]<-c(F,F,F,F,F,F)
 ```
 
+
+<br><br>
+
+**notes:**
+
+*********************************************************************************************************************************
+model did not converge  --  poor estimates  -- see model selection for posterior distribution etc..
+modeled sigma .16 km, maybe a lack of trap dependence
+
+
+***************************************************************************************************************
+
+
+
+### `r i = 5; species[i]`
+
+```{r, echo = F}
+  in.file <- file.paths[i]
+  sig.models <-  c("sc.fm1")
+  support.tab<-tibble(level = c('good', 'moderate', 'poor'),
+                    support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
+                    covariates =  c('', 
+                                    '', 
+                                    'lure - snow - temp - pass - snow\\*temp - lure\\*snow'))
+  # lure, snow, temp, pass, snow*temp, lure*snow'
+  significance.table[[species[i]]]<-c(F,F,F,F,F,F)
+```
 ```{r, child = render.file, as.is = T}
 
 ```
@@ -346,15 +261,44 @@ modeled sigma around .12 km
 **notes:**
 
 *********************************************************************************************************************************
-need to run snow + temp + temp*snow
 
-vals are temp from the global model, including lure and pass..
+small amount of  support for lure*snow interaction,
+could maybe run snow + temp + lure*snow and check waic
 
-n effective is not great, could be not converging well, 
+***************************************************************************************************************
 
-possibly poor trap dependence, modeled sigma is around .35 km
 
-********************************************************************************************************************************
+
+### `r i = 6; species[i]`
+
+```{r, echo = F}
+  in.file <- file.paths[i]
+  sig.models <-  c("sc.fm1")
+  support.tab<-tibble(level = c('good', 'moderate', 'poor'),
+                    support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
+                    covariates =  c('', 
+                                    '', 
+                                    'lure - snow - temp - pass - snow\\*temp - lure\\*snow'))
+  # lure, snow, temp, pass, snow*temp, lure*snow'
+  significance.table[[species[i]]]<-c(F,F,F,F,F,F)
+```
+```{r, child = render.file, as.is = T}
+
+```
+
+<br><br>
+
+**notes:**
+
+*********************************************************************************************************************************
+
+poor connvergance..
+no covariate support
+
+***************************************************************************************************************
+
+
+
 
 
 ```{r, echo = F}

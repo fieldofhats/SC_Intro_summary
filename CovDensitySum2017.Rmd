@@ -17,7 +17,7 @@ library(gridExtra)
 library(logspline)
 
 
-in.path<-"./_data/2019"
+in.path<-"./_data/2017"
 in.files<-list.files(in.path)
 file.paths<-file.path(in.path, in.files)
 
@@ -113,7 +113,10 @@ kable(models.print,align = 'l') %>%
 ### `r i = 1; species[i]`
 
 ```{r, echo = F}
-#black bear
+## badger
+# models.print
+# models.print$model
+
   in.file <- file.paths[i]
   sig.models <-  c("sc.fm1")
   support.tab<-tibble(level = c('good', 'moderate', 'poor'),
@@ -121,8 +124,8 @@ kable(models.print,align = 'l') %>%
                     covariates =  c('', 
                                     '', 
                                     'lure - snow - temp - pass - snow\\*temp - lure\\*snow'))
-  # lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(F,F,F,F,F,F)
+  #                                   lure, snow, temp, pass, snow*temp, lure*snow'
+  significance.table[[species[i]]]<-c(F,     F,   F,    F,    F,          F)
 ```
 ```{r, child = render.file, as.is = T}
 
@@ -134,11 +137,7 @@ kable(models.print,align = 'l') %>%
 
 *********************************************************************************************************************************
 
-lure and snow are on the borderline of significant, but seem to have overall thin support,
-
-suspisious behavior of output distribution of n and density, multiple declining
-
-peaks, not a smooth curve.  could be poor convergence, maybe due to hibernation, seasonal migration..?
+no covariate support
 
 ***************************************************************************************************************
 
@@ -147,53 +146,34 @@ peaks, not a smooth curve.  could be poor convergence, maybe due to hibernation,
 
 ### `r i = 2; species[i]`
 
-```{r, echo = F, as.is = T}
-## marten
-  # models.print
-  in.file <- file.paths[i]
-  sig.models <-  c("sc.fm1", "sc.fm2.2")
-  support.tab<-tibble(level = c('good', 'moderate', 'poor'),
-                    support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
-                    covariates =  c('', 
-                                    'temp', 
-                                    'lure - snow  - pass - snow\\*temp - lure\\*snow'))
-  # lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(F,F,T,F,F,F)
 
-```
-
-```{r, child = render.file, as.is = T}
-
-```
 
 <br><br>
 
 **notes:**
 
 *********************************************************************************************************************************
+lure seems to be significant, but the top model (with lure) did not converge, more difficulty
 
-moderate to small amount of support for temp
+with black bear and the sc model
+
 
 ***************************************************************************************************************
 
 
 ### `r i = 3; species[i]`
 
-```{r, echo = F, as.is = T}
-## bobcat
-# models.print
+```{r, echo = F}
   in.file <- file.paths[i]
-  sig.models <-  c("sc.fm1", 'sc.fm2.3')
+  sig.models <-  c("sc.fm1", 'sc.fm2.0')
   support.tab<-tibble(level = c('good', 'moderate', 'poor'),
                     support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
                     covariates =  c('', 
-                                    'pass', 
-                                    'lure - snow - temp  - snow\\*temp - lure\\*snow'))
-  # lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(F,F,F,T,F,F)
-
+                                    'lure', 
+                                    'snow - temp - pass - snow\\*temp - lure\\*snow'))
+  #                                   lure, snow, temp, pass, snow*temp, lure*snow'
+  significance.table[[species[i]]]<-c(T,     F,   F,    F,    F,          F)
 ```
-
 ```{r, child = render.file, as.is = T}
 
 ```
@@ -203,11 +183,10 @@ moderate to small amount of support for temp
 **notes:**
 
 *********************************************************************************************************************************
-Dot model wins, probably further support against pass as a cov
+moderate support for lure, too much to ignore
 
-moderate to small amount of support for pass, lure has tiny amount of support lean toward rejecting, very
+better estimate with the dot model.. but cant really justify ignoring waic
 
-few detections for multiple covs, 
 
 ***************************************************************************************************************
 
@@ -215,21 +194,20 @@ few detections for multiple covs,
 
 ### `r i = 4; species[i]`
 
-```{r, echo = F, as.is = T}
-## coyote
+```{r, echo = F}
+## bobcat
 # models.print
+# models.print$model
   in.file <- file.paths[i]
-  sig.models <-  c("sc.fm1", 'sc.fm2.0', 'sc.fm2.1', 'sc.fm3.0')
+  sig.models <-  c("sc.fm1", "sc.fm2.2")
   support.tab<-tibble(level = c('good', 'moderate', 'poor'),
                     support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
-                    covariates =  c('lure', 
-                                    'snow', 
-                                    'temp - pass - snow\\*temp - lure\\*snow'))
-  # lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(T,T,F,F,F,F)
-
+                    covariates =  c('temp', 
+                                    '', 
+                                    'lure - snow - pass - snow\\*temp - lure\\*snow'))
+ #                                   lure, snow, temp, pass, snow*temp, lure*snow'
+  significance.table[[species[i]]]<-c(F,     F,   T,    F,    F,          F)
 ```
-
 ```{r, child = render.file, as.is = T}
 
 ```
@@ -248,41 +226,34 @@ few detections for multiple covs,
 
 ### `r i = 5; species[i]`
 
-```{r, echo = F, as.is = T}
-# long tailed weasal
+```{r, echo = F}
+## coyote
 # models.print
+# models.print$model
   in.file <- file.paths[i]
-  sig.models <-  c("sc.fm1")
+  sig.models <-  c("sc.fm1", "sc.fm2.0")
   support.tab<-tibble(level = c('good', 'moderate', 'poor'),
                     support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
-                    covariates =  c('lure', 
-                                    'snow', 
-                                    'temp - pass - snow\\*temp - lure\\*snow'))
-                                    
-  # lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(F,F,F,F,F,F)
+                    covariates =  c('', 
+                                    'lure', 
+                                    'snow - temp - pass - snow\\*temp - lure\\*snow'))
+ #                                   lure, snow, temp, pass, snow*temp, lure*snow'
+  significance.table[[species[i]]]<-c(T,     F,   F,    F,    F,          F)
+```
+```{r, child = render.file, as.is = T}
 
 ```
-
-```{r, echo = F, as.is = T}
-# ```{r, child = render.file, as.is = T}
-# 
-# ```
-```
-
-
 
 <br><br>
 
 **notes:**
 
 *********************************************************************************************************************************
-model did not converge
+lure has p support, and slight rev mcmc support, other vars have no support from rev mcmc
 
-maybe a lack of spatial dependance
+poor model convergenc, maybe try with higher M
 
-modeled sigma around .12 km
-
+estimate is questionable..
 
 ***************************************************************************************************************
 
@@ -290,76 +261,38 @@ modeled sigma around .12 km
 
 ### `r i = 6; species[i]`
 
-```{r, echo = F, as.is = T}
-# red fox
-# models.print
-  in.file <- file.paths[i]
-  sig.models <-  c("sc.fm1")
-  support.tab<-tibble(level = c('good', 'moderate', 'poor'),
-                    support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
-                    covariates =  c('', 
-                                    '', 
-                                    'lure - snow - temp - pass - snow\\*temp - lure\\*snow'))
-  # lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(F,F,F,F,F,F)
 
-```
-
-```{r, child = render.file, as.is = T}
-
-```
 
 <br><br>
 
 **notes:**
 
 *********************************************************************************************************************************
-3 detecions, not much power
 
+model did not converge
 
-********************************************************************************************************************************
+***************************************************************************************************************
 
 
 ### `r i = 7; species[i]`
 
-```{r, echo = F, as.is = T}
-# WTJ
-# models.print
-  in.file <- file.paths[i]
-  sig.models <-  c("sc.fm1", 'sc.fm2.1', 'sc.fm2.2', 'sc.fm5.0')
-  support.tab<-tibble(level = c('good', 'moderate', 'poor'),
-                    support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
-                    covariates =  c('snow - temp- snow\\*temp', 
-                                    '', 
-                                    'lure - pass - lure\\*snow'))
-  #                                   lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(F,    T,    T,    F,    T,          F)
 
-```
 
-```{r, child = render.file, as.is = T}
-
-```
 
 <br><br>
 
 **notes:**
 
 *********************************************************************************************************************************
-need to run snow + temp + temp*snow
+poor convergence
 
-vals are temp from the global model, including lure and pass..
 
-n effective is not great, could be not converging well, 
-
-possibly poor trap dependence, modeled sigma is around .35 km
-
-********************************************************************************************************************************
+***************************************************************************************************************
 
 
 ```{r, echo = F}
 ## output tables:
-saveRDS(density.out, file.path('./_data', paste(meta$yr, 'density_sigCov_species.RDS', sep = '_')))
-saveRDS(significance.table, file.path('./_data', paste(meta$yr, 'cov_significanceBySp.RDS', sep = '_')))
+ saveRDS(density.out, file.path('./_data', paste(meta$yr, 'density_sigCov_species.RDS', sep = '_')))
+ saveRDS(significance.table, file.path('./_data', paste(meta$yr, 'cov_significanceBySp.RDS', sep = '_')))
 
 ```
