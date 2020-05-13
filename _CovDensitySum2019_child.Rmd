@@ -1,0 +1,298 @@
+---
+title: ""
+output: html_document
+
+---
+
+```{r include=FALSE}
+
+# params:
+#   file.path: "./_data/2019/2019_AmericanBlackBear_parameter_summary.RDS"
+#   sig.models: !r c("sc.fm1")
+  # sig.covs: !r c('', '', 'lure  snow  temp  pass  snow*temp  lure*snow')
+#############################################
+############  tab child 
+###########  
+# knitr::opts_chunk$set(echo = TRUE)
+# library(tidyverse)
+# library(knitr)
+# library(kableExtra)
+# library(gridExtra)
+# library(logspline)
+# 
+# significance.table<-tibble(covs = rep(NA, 6))
+# 
+# in.path<-"./data/2019"
+# in.files<-list.files(in.path)
+
+```
+
+```{r include = F}
+###################################################################################################################################
+########## new tab
+
+# significance.table<-tibble(covs = rep(NA, 6))
+
+
+#in.file<-params$file.path
+sum.dat<-readRDS(in.file)
+parameters<-sum.dat$parameter.summary
+waic<-sum.dat$waic.table
+meta<-sum.dat$meta.table
+
+models.print<-waic %>% 
+  select(model, description)
+
+cov.table<-parameters %>% 
+  filter(!is.na(Mean.rev.int.un)) %>% 
+  mutate(bayes_p_val = bayes_P, 
+         bayes_factor = bayes_f_N03,
+         revMCMC_constrained = mean.rev.int.con,
+         revMCMC_noInteractions = mean.rev,
+         revMCMC_unconstrained = Mean.rev.int.un,
+         ) %>% 
+  select(model, covs, bayes_p_val, bayes_factor, revMCMC_constrained, revMCMC_unconstrained,  revMCMC_noInteractions) %>%
+  filter(bayes_p_val <= .11) %>% 
+  arrange(bayes_p_val)
+
+
+global.model<-parameters %>% 
+  filter(!is.na(Mean.rev.int.un)) %>% 
+  mutate(bayes_p_val = bayes_P, 
+         bayes_factor = bayes_f_N03, 
+         revMCMC_constrained = mean.rev.int.con,
+         revMCMC_noInteractions = mean.rev,
+         revMCMC_unconstrained = Mean.rev.int.un,
+         ) %>% 
+  #mutate(bayes_p_val = cell_spec(bayes_p_val, "html", color = ifelse(bayes_p_val < .11, "blue", "black"))) %>% 
+ select(model, covs, bayes_p_val, bayes_factor, revMCMC_constrained, revMCMC_unconstrained,  revMCMC_noInteractions) %>% 
+  filter(model %in% c('sc.fm5.0', 'sc.fm5.1' ) )
+
+
+single.model<-parameters %>% 
+  filter(!is.na(Mean.rev.int.un)) %>% 
+  mutate(bayes_p_val = bayes_P, 
+         bayes_factor = bayes_f_N03, 
+         revMCMC_constrained = mean.rev.int.con,
+         revMCMC_noInteractions = mean.rev,
+         revMCMC_unconstrained = Mean.rev.int.un,
+         ) %>% 
+  #mutate(bayes_p_val = cell_spec(bayes_p_val, "html", color = ifelse(bayes_p_val < .11, "blue", "black"))) %>% 
+  select(model, covs, bayes_p_val, bayes_factor, revMCMC_constrained, revMCMC_unconstrained,  revMCMC_noInteractions) %>% 
+  filter(model %in% c('sc.fm2.0', 'sc.fm2.1', 'sc.fm2.2', 'sc.fm2.3' ) )
+  
+
+covs<- parameters %>% 
+  filter(!is.na(Mean.rev.int.un)) %>% 
+  select(covs) %>% 
+  unique()
+
+
+
+```
+
+<br><br>
+
+
+**model metadata:**
+
+**************************************************************************************************
+```{r echo = F}
+meta.print<-meta %>% 
+  mutate( 
+         detections = N_detections, 
+         model_aggragate_reps = model_agg_M,
+         ) %>% 
+  select(survey = site, 
+         n_sites,
+         detections,
+         rep_period,
+         model_aggragate_reps,
+         state_buffer,
+         iterations,
+         burnin,
+         thin,
+         sigma.mean,
+         sigma.sd
+  )
+  
+  
+kable(meta.print,align = 'l') %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
+
+<br><br>
+
+**global models:**
+
+*************************************************************************************************************************************************
+```{r echo = F}
+global.model %>% 
+  mutate(covs = cell_spec(covs, color = ifelse(bayes_p_val < .11 , ifelse(revMCMC_constrained >= .2 , "red", "orange"), ifelse(revMCMC_constrained >= .2 , "orange", "blue")))) %>%
+  mutate(bayes_p_val = cell_spec(bayes_p_val, color = ifelse(bayes_p_val < .11, "orange", "black"))) %>%
+  mutate(revMCMC_constrained = round(revMCMC_constrained, 5)) %>% 
+  mutate(revMCMC_constrained = cell_spec(revMCMC_constrained, color = ifelse(revMCMC_constrained >= .2 , "orange", "black"))) %>%
+  kable(align = 'l', escape = F) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
+
+<br><br>
+
+**single covariate models:**
+
+********************************************************************************************************************
+```{r echo = F}
+single.model %>% 
+  mutate(covs = cell_spec(covs, color = ifelse(bayes_p_val < .11 , ifelse(revMCMC_constrained >= .2 , "red", "orange"), ifelse(revMCMC_constrained >= .2 , "orange", "blue")))) %>%
+  mutate(bayes_p_val = cell_spec(bayes_p_val, color = ifelse(bayes_p_val < .11, "orange", "black"))) %>%
+  mutate(revMCMC_constrained = round(revMCMC_constrained, 5)) %>% 
+  mutate(revMCMC_constrained = cell_spec(revMCMC_constrained, color = ifelse(revMCMC_constrained >= .2 , "orange", "black"))) %>%
+  kable(align = 'l', escape = F) %>% 
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
+
+*********************************************************************************************************************
+<br><br>
+
+**All models:**
+Covariates with p values below .11 (bayesian p, probability covariate is not null)
+
+***********************************************************************************************************
+```{r echo = F}
+cov.table %>% 
+  mutate(covs = cell_spec(covs, color = ifelse(bayes_p_val < .11 , ifelse(revMCMC_constrained >= .2 , "red", "orange"), ifelse(revMCMC_constrained >= .2 , "orange", "blue")))) %>%
+  mutate(bayes_p_val = cell_spec(bayes_p_val, color = ifelse(bayes_p_val < .11, "orange", "black"))) %>%
+  mutate(revMCMC_constrained = round(revMCMC_constrained, 5)) %>% 
+  mutate(revMCMC_constrained = cell_spec(revMCMC_constrained, color = ifelse(revMCMC_constrained >= .2 , "orange", "black"))) %>%
+  kable(align = 'l', escape = F) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
+
+<br><br>
+
+**parameter support:**
+
+
+****************************************************************************************************************
+```{r, echo = F}
+# support.tab<-tibble(level = c('good', 'moderate', 'poor'),
+#                     support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
+#                     covariates = params$sig.covs)
+
+
+kable(support.tab,align = 'l') %>%
+  row_spec(1, color = "red") %>% 
+  row_spec(2, color = "orange") %>%
+  row_spec(3, color = "blue") %>%
+  kable_styling( full_width = F, position = "left")
+
+```
+
+
+
+
+
+
+```{r include = F}
+#### significant covs
+
+
+# waic$model
+# sig.models <- params$sig.models
+
+```
+<br><br>
+
+**models with significant covariates:** 
+
+********************************************************************************************************************
+
+
+<br><br>
+
+**waic:**
+
+**********************************************************************************************************************
+```{r, echo = F}
+# print.waic<-waic %>% 
+#   arrange(WAIC)
+
+print.waic<-waic %>% 
+  filter(model %in% sig.models) %>% 
+  arrange(WAIC)
+
+kable(print.waic,align = 'l') %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+
+```
+
+<br><br>
+
+**Density per 100km, significant models:**
+
+************************************************************************************************************************
+```{r, echo = F}
+## plot D
+plot.density <- parameters %>% 
+  filter(model %in% sig.models, param == 'D') %>% 
+  select(model, hdi_89pct_upper, hdi.75, mode, hdi.25, hdi_89pct_lower) %>% 
+  t() %>% 
+  as_tibble()
+colnames(plot.density) <- plot.density[1,]
+plot.density<-plot.density %>% 
+  slice(-1L) 
+plot.density<-plot.density %>% 
+  pivot_longer(names_to = "model", cols = c(1: ncol(plot.density)),values_to = "D") %>% 
+  mutate(D = as.numeric(D))
+  
+ggplot(data = plot.density) +
+  geom_boxplot(aes(x = model, y = D))
+
+
+```
+
+
+<br><br>
+
+
+**top models density per 100sq km, significant covariates:**
+
+********************************************************************************************************************************************************************
+```{r, echo = F}
+#significance.table<-tibble(covs = rep(NA, 6))
+#significance.table$covs<-c(lure, snow, temp, pass, )
+
+sig.params<-significance.table %>% 
+  filter(!!sym(species[i]) == T ) %>% 
+  select(covs) %>% 
+  unlist()
+## top model data..
+print.top.model<-parameters %>% 
+  select(model, covs, n_effective, mode, hdi_89pct_lower,hdi_89pct_upper) %>% 
+  ## select d and covs from best model
+  filter(model == print.waic$model[[1]] & covs %in% c('D', sig.params)) %>% 
+  mutate (species = species[i])%>% 
+  select(species, everything())
+
+
+
+# ## Add params from secondary model if needed
+# print.top.model<-parameters %>% 
+#   select(model, covs, n_effective, mode, hdi_89pct_lower,hdi_89pct_upper) %>% 
+#   ## select d and covs from best model
+#   filter(model == print.waic$model[[3]] & covs %in% c(sig.params)) %>% 
+#   mutate (species = sum.dat$meta.table$sp) %>% 
+#  select(species, everything())
+#   rbind(print.top.model) 
+
+density.out<-density.out %>% 
+  rbind(print.top.model)
+
+
+
+
+kable(print.top.model,align = 'l') %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```

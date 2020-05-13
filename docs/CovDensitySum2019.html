@@ -1,0 +1,5884 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>CovDensitySum2019.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Spatial Count Model (SC) Results</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="results2016.html">2016</a>
+</li>
+<li>
+  <a href="results2017.html">2017</a>
+</li>
+<li>
+  <a href="results2018.html">2018</a>
+</li>
+<li>
+  <a href="results2019.html">2019</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p><br><br><br><br><br></p>
+<div id="parameter-summaries-and-model-selection" class="section level3">
+<h3>Parameter summaries and model selection</h3>
+<p><strong>Models evaluated:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm1
+</td>
+<td style="text-align:left;">
+dot model
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.0
+</td>
+<td style="text-align:left;">
+lure
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.1
+</td>
+<td style="text-align:left;">
+snow
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+temp
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.3
+</td>
+<td style="text-align:left;">
+pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm3.0
+</td>
+<td style="text-align:left;">
+lure + snow
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm3.1
+</td>
+<td style="text-align:left;">
+lure + pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.0
+</td>
+<td style="text-align:left;">
+lure + snow + temp
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.2
+</td>
+<td style="text-align:left;">
+lure + snow + temp + pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+lure + snow + temp + pass + temp * snow
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+lure + snow + temp + pass + lure * snow
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br><br></p>
+</div>
+<div id="section" class="section level2 tabset">
+<h2></h2>
+<div id="americanblackbear" class="section level3">
+<h3>AmericanBlackBear</h3>
+<p><br><br></p>
+<p><strong>model metadata:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+survey
+</th>
+<th style="text-align:left;">
+n_sites
+</th>
+<th style="text-align:left;">
+detections
+</th>
+<th style="text-align:left;">
+rep_period
+</th>
+<th style="text-align:left;">
+model_aggragate_reps
+</th>
+<th style="text-align:left;">
+state_buffer
+</th>
+<th style="text-align:left;">
+iterations
+</th>
+<th style="text-align:left;">
+burnin
+</th>
+<th style="text-align:left;">
+thin
+</th>
+<th style="text-align:left;">
+sigma.mean
+</th>
+<th style="text-align:left;">
+sigma.sd
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Ritter Range
+</td>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:left;">
+19
+</td>
+<td style="text-align:left;">
+7 days
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:left;">
+2.5
+</td>
+<td style="text-align:left;">
+350000
+</td>
+<td style="text-align:left;">
+20000
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+2.3
+</td>
+<td style="text-align:left;">
+0.268
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>global models:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.08331</span>
+</td>
+<td style="text-align:left;">
+1.791
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00236</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0037576
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.07285</span>
+</td>
+<td style="text-align:left;">
+1.429
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00182</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0029697
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00406</span>
+</td>
+<td style="text-align:left;">
+45.306
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00297</span>
+</td>
+<td style="text-align:left;">
+0.0045455
+</td>
+<td style="text-align:left;">
+0.0064848
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.51039</span>
+</td>
+<td style="text-align:left;">
+0.385
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0010909
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">temp*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.93501</span>
+</td>
+<td style="text-align:left;">
+0.126
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0007273
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.0402</span>
+</td>
+<td style="text-align:left;">
+4.417
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00236</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0037576
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.27191</span>
+</td>
+<td style="text-align:left;">
+0.457
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00182</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0029697
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00461</span>
+</td>
+<td style="text-align:left;">
+39.705
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00297</span>
+</td>
+<td style="text-align:left;">
+0.0045455
+</td>
+<td style="text-align:left;">
+0.0064848
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.49187</span>
+</td>
+<td style="text-align:left;">
+0.415
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0010909
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.88691</span>
+</td>
+<td style="text-align:left;">
+0.141
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0016364
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>single covariate models:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm2.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.24904</span>
+</td>
+<td style="text-align:left;">
+0.465
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00236</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0037576
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.1976</span>
+</td>
+<td style="text-align:left;">
+err
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00182</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0029697
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.1196</span>
+</td>
+<td style="text-align:left;">
+err
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00297</span>
+</td>
+<td style="text-align:left;">
+0.0045455
+</td>
+<td style="text-align:left;">
+0.0064848
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.3
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.99709</span>
+</td>
+<td style="text-align:left;">
+0.177
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0010909
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><br><br></p>
+<p><strong>All models:</strong> Covariates with p values below .11 (bayesian p, probability covariate is not null)</p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm4.2
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00248</span>
+</td>
+<td style="text-align:left;">
+52.294
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00297</span>
+</td>
+<td style="text-align:left;">
+0.0045455
+</td>
+<td style="text-align:left;">
+0.0064848
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00291</span>
+</td>
+<td style="text-align:left;">
+err
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00297</span>
+</td>
+<td style="text-align:left;">
+0.0045455
+</td>
+<td style="text-align:left;">
+0.0064848
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00406</span>
+</td>
+<td style="text-align:left;">
+45.306
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00297</span>
+</td>
+<td style="text-align:left;">
+0.0045455
+</td>
+<td style="text-align:left;">
+0.0064848
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00461</span>
+</td>
+<td style="text-align:left;">
+39.705
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00297</span>
+</td>
+<td style="text-align:left;">
+0.0045455
+</td>
+<td style="text-align:left;">
+0.0064848
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.2
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.02103</span>
+</td>
+<td style="text-align:left;">
+5.107
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00182</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0029697
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.0402</span>
+</td>
+<td style="text-align:left;">
+4.417
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00236</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0037576
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.04719</span>
+</td>
+<td style="text-align:left;">
+err
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00182</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0029697
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.2
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.06244</span>
+</td>
+<td style="text-align:left;">
+2.404
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00236</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0037576
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.07285</span>
+</td>
+<td style="text-align:left;">
+1.429
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00182</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0029697
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.08283</span>
+</td>
+<td style="text-align:left;">
+err
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00236</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0037576
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.08331</span>
+</td>
+<td style="text-align:left;">
+1.791
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00236</span>
+</td>
+<td style="text-align:left;">
+0.0019394
+</td>
+<td style="text-align:left;">
+0.0037576
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>parameter support:</strong></p>
+<hr />
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+support
+</th>
+<th style="text-align:left;">
+covariates
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;color: red !important;">
+good
+</td>
+<td style="text-align:left;color: red !important;">
+pval and rev MCMC
+</td>
+<td style="text-align:left;color: red !important;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: orange !important;">
+moderate
+</td>
+<td style="text-align:left;color: orange !important;">
+pval or rev MCMC
+</td>
+<td style="text-align:left;color: orange !important;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+poor
+</td>
+<td style="text-align:left;color: blue !important;">
+neither
+</td>
+<td style="text-align:left;color: blue !important;">
+lure - snow - temp - pass - snow*temp - lure*snow
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>models with significant covariates:</strong></p>
+<hr />
+<p><br><br></p>
+<p><strong>waic:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+description
+</th>
+<th style="text-align:left;">
+WAIC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm1
+</td>
+<td style="text-align:left;">
+dot model
+</td>
+<td style="text-align:left;">
+172.1906
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>Density per 100km, significant models:</strong></p>
+<hr />
+<pre><code>## Warning: The `x` argument of `as_tibble.matrix()` must have column names if `.name_repair` is omitted as of tibble 2.0.0.
+## Using compatibility `.name_repair`.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<p><img src="CovDensitySum2019_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><br><br></p>
+<p><strong>top models density per 100sq km, significant covariates:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+species
+</th>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+n_effective
+</th>
+<th style="text-align:left;">
+mode
+</th>
+<th style="text-align:left;">
+hdi_89pct_lower
+</th>
+<th style="text-align:left;">
+hdi_89pct_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+AmericanBlackBear
+</td>
+<td style="text-align:left;">
+sc.fm1
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:left;">
+11201
+</td>
+<td style="text-align:left;">
+1.123
+</td>
+<td style="text-align:left;">
+1.12
+</td>
+<td style="text-align:left;">
+2.25
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>notes:</strong></p>
+<hr />
+<p>lure and snow are on the borderline of significant, but seem to have overall thin support,</p>
+<p>suspisious behavior of output distribution of n and density, multiple declining</p>
+<p>peaks, not a smooth curve. could be poor convergence, maybe due to hibernation, seasonal migration..?</p>
+<hr />
+</div>
+<div id="americanmarten" class="section level3">
+<h3>AmericanMarten</h3>
+<p><br><br></p>
+<p><strong>model metadata:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+survey
+</th>
+<th style="text-align:left;">
+n_sites
+</th>
+<th style="text-align:left;">
+detections
+</th>
+<th style="text-align:left;">
+rep_period
+</th>
+<th style="text-align:left;">
+model_aggragate_reps
+</th>
+<th style="text-align:left;">
+state_buffer
+</th>
+<th style="text-align:left;">
+iterations
+</th>
+<th style="text-align:left;">
+burnin
+</th>
+<th style="text-align:left;">
+thin
+</th>
+<th style="text-align:left;">
+sigma.mean
+</th>
+<th style="text-align:left;">
+sigma.sd
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Ritter Range
+</td>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:left;">
+88
+</td>
+<td style="text-align:left;">
+7 days
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:left;">
+2.5
+</td>
+<td style="text-align:left;">
+350000
+</td>
+<td style="text-align:left;">
+20000
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+0.765
+</td>
+<td style="text-align:left;">
+0.13
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>global models:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.6698</span>
+</td>
+<td style="text-align:left;">
+0.072
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00042</span>
+</td>
+<td style="text-align:left;">
+0.0008485
+</td>
+<td style="text-align:left;">
+0.0007273
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.42675</span>
+</td>
+<td style="text-align:left;">
+0.096
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00024</span>
+</td>
+<td style="text-align:left;">
+0.0002424
+</td>
+<td style="text-align:left;">
+0.0006061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00566</span>
+</td>
+<td style="text-align:left;">
+11.730
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00624</span>
+</td>
+<td style="text-align:left;">
+0.0075152
+</td>
+<td style="text-align:left;">
+0.0115758
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.93308</span>
+</td>
+<td style="text-align:left;">
+0.137
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0006667
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">temp*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.32976</span>
+</td>
+<td style="text-align:left;">
+0.166
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0006667
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.02554</span>
+</td>
+<td style="text-align:left;">
+2.474
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00042</span>
+</td>
+<td style="text-align:left;">
+0.0008485
+</td>
+<td style="text-align:left;">
+0.0007273
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.08009</span>
+</td>
+<td style="text-align:left;">
+0.557
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00024</span>
+</td>
+<td style="text-align:left;">
+0.0002424
+</td>
+<td style="text-align:left;">
+0.0006061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00433</span>
+</td>
+<td style="text-align:left;">
+10.601
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00624</span>
+</td>
+<td style="text-align:left;">
+0.0075152
+</td>
+<td style="text-align:left;">
+0.0115758
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.9898</span>
+</td>
+<td style="text-align:left;">
+0.125
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0006667
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00721</span>
+</td>
+<td style="text-align:left;">
+5.798
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0006667
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>single covariate models:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm2.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.44083</span>
+</td>
+<td style="text-align:left;">
+0.104
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00042</span>
+</td>
+<td style="text-align:left;">
+0.0008485
+</td>
+<td style="text-align:left;">
+0.0007273
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.8944</span>
+</td>
+<td style="text-align:left;">
+0.040
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00024</span>
+</td>
+<td style="text-align:left;">
+0.0002424
+</td>
+<td style="text-align:left;">
+0.0006061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.02981</span>
+</td>
+<td style="text-align:left;">
+1.682
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00624</span>
+</td>
+<td style="text-align:left;">
+0.0075152
+</td>
+<td style="text-align:left;">
+0.0115758
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.3
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.86377</span>
+</td>
+<td style="text-align:left;">
+0.119
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0006667
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><br><br></p>
+<p><strong>All models:</strong> Covariates with p values below .11 (bayesian p, probability covariate is not null)</p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00433</span>
+</td>
+<td style="text-align:left;">
+10.601
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00624</span>
+</td>
+<td style="text-align:left;">
+0.0075152
+</td>
+<td style="text-align:left;">
+0.0115758
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00566</span>
+</td>
+<td style="text-align:left;">
+11.730
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00624</span>
+</td>
+<td style="text-align:left;">
+0.0075152
+</td>
+<td style="text-align:left;">
+0.0115758
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00721</span>
+</td>
+<td style="text-align:left;">
+5.798
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0006667
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.2
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.01068</span>
+</td>
+<td style="text-align:left;">
+3.595
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00624</span>
+</td>
+<td style="text-align:left;">
+0.0075152
+</td>
+<td style="text-align:left;">
+0.0115758
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.01207</span>
+</td>
+<td style="text-align:left;">
+4.700
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00624</span>
+</td>
+<td style="text-align:left;">
+0.0075152
+</td>
+<td style="text-align:left;">
+0.0115758
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.02554</span>
+</td>
+<td style="text-align:left;">
+2.474
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00042</span>
+</td>
+<td style="text-align:left;">
+0.0008485
+</td>
+<td style="text-align:left;">
+0.0007273
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.02981</span>
+</td>
+<td style="text-align:left;">
+1.682
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00624</span>
+</td>
+<td style="text-align:left;">
+0.0075152
+</td>
+<td style="text-align:left;">
+0.0115758
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.08009</span>
+</td>
+<td style="text-align:left;">
+0.557
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00024</span>
+</td>
+<td style="text-align:left;">
+0.0002424
+</td>
+<td style="text-align:left;">
+0.0006061
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>parameter support:</strong></p>
+<hr />
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+support
+</th>
+<th style="text-align:left;">
+covariates
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;color: red !important;">
+good
+</td>
+<td style="text-align:left;color: red !important;">
+pval and rev MCMC
+</td>
+<td style="text-align:left;color: red !important;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: orange !important;">
+moderate
+</td>
+<td style="text-align:left;color: orange !important;">
+pval or rev MCMC
+</td>
+<td style="text-align:left;color: orange !important;">
+temp
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+poor
+</td>
+<td style="text-align:left;color: blue !important;">
+neither
+</td>
+<td style="text-align:left;color: blue !important;">
+lure - snow - pass - snow*temp - lure*snow
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>models with significant covariates:</strong></p>
+<hr />
+<p><br><br></p>
+<p><strong>waic:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+description
+</th>
+<th style="text-align:left;">
+WAIC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+temp
+</td>
+<td style="text-align:left;">
+539.9674
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm1
+</td>
+<td style="text-align:left;">
+dot model
+</td>
+<td style="text-align:left;">
+546.5134
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>Density per 100km, significant models:</strong></p>
+<hr />
+<p><img src="CovDensitySum2019_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><br><br></p>
+<p><strong>top models density per 100sq km, significant covariates:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+species
+</th>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+n_effective
+</th>
+<th style="text-align:left;">
+mode
+</th>
+<th style="text-align:left;">
+hdi_89pct_lower
+</th>
+<th style="text-align:left;">
+hdi_89pct_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+AmericanMarten
+</td>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:left;">
+1043
+</td>
+<td style="text-align:left;">
+19.136
+</td>
+<td style="text-align:left;">
+8.42
+</td>
+<td style="text-align:left;">
+60.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AmericanMarten
+</td>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+temp
+</td>
+<td style="text-align:left;">
+16500
+</td>
+<td style="text-align:left;">
+0.291
+</td>
+<td style="text-align:left;">
+0.12
+</td>
+<td style="text-align:left;">
+0.48
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>notes:</strong></p>
+<hr />
+<p>moderate to small amount of support for temp</p>
+<hr />
+</div>
+<div id="bobcat" class="section level3">
+<h3>Bobcat</h3>
+<p><br><br></p>
+<p><strong>model metadata:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+survey
+</th>
+<th style="text-align:left;">
+n_sites
+</th>
+<th style="text-align:left;">
+detections
+</th>
+<th style="text-align:left;">
+rep_period
+</th>
+<th style="text-align:left;">
+model_aggragate_reps
+</th>
+<th style="text-align:left;">
+state_buffer
+</th>
+<th style="text-align:left;">
+iterations
+</th>
+<th style="text-align:left;">
+burnin
+</th>
+<th style="text-align:left;">
+thin
+</th>
+<th style="text-align:left;">
+sigma.mean
+</th>
+<th style="text-align:left;">
+sigma.sd
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Ritter Range
+</td>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+7 days
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:left;">
+2.5
+</td>
+<td style="text-align:left;">
+350000
+</td>
+<td style="text-align:left;">
+20000
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+1.175
+</td>
+<td style="text-align:left;">
+0.14
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>global models:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.11103</span>
+</td>
+<td style="text-align:left;">
+4.064
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01315</span>
+</td>
+<td style="text-align:left;">
+0.0135758
+</td>
+<td style="text-align:left;">
+0.0201212
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.99543</span>
+</td>
+<td style="text-align:left;">
+0.144
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00097</span>
+</td>
+<td style="text-align:left;">
+0.0009091
+</td>
+<td style="text-align:left;">
+0.0014545
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.83334</span>
+</td>
+<td style="text-align:left;">
+0.266
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00121</span>
+</td>
+<td style="text-align:left;">
+0.0007273
+</td>
+<td style="text-align:left;">
+0.0013939
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.0978</span>
+</td>
+<td style="text-align:left;">
+5.444
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0209697
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">temp*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.55237</span>
+</td>
+<td style="text-align:left;">
+0.472
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0021212
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.03254</span>
+</td>
+<td style="text-align:left;">
+23.447
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01315</span>
+</td>
+<td style="text-align:left;">
+0.0135758
+</td>
+<td style="text-align:left;">
+0.0201212
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.52128</span>
+</td>
+<td style="text-align:left;">
+0.595
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00097</span>
+</td>
+<td style="text-align:left;">
+0.0009091
+</td>
+<td style="text-align:left;">
+0.0014545
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.87765</span>
+</td>
+<td style="text-align:left;">
+0.288
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00121</span>
+</td>
+<td style="text-align:left;">
+0.0007273
+</td>
+<td style="text-align:left;">
+0.0013939
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.12582</span>
+</td>
+<td style="text-align:left;">
+4.177
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0209697
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.48466</span>
+</td>
+<td style="text-align:left;">
+0.713
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">6e-05</span>
+</td>
+<td style="text-align:left;">
+0.0008485
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>single covariate models:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm2.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.12673</span>
+</td>
+<td style="text-align:left;">
+3.318
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01315</span>
+</td>
+<td style="text-align:left;">
+0.0135758
+</td>
+<td style="text-align:left;">
+0.0201212
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.79594</span>
+</td>
+<td style="text-align:left;">
+0.178
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00097</span>
+</td>
+<td style="text-align:left;">
+0.0009091
+</td>
+<td style="text-align:left;">
+0.0014545
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.95035</span>
+</td>
+<td style="text-align:left;">
+0.137
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00121</span>
+</td>
+<td style="text-align:left;">
+0.0007273
+</td>
+<td style="text-align:left;">
+0.0013939
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.3
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.10391</span>
+</td>
+<td style="text-align:left;">
+6.885
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0209697
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><br><br></p>
+<p><strong>All models:</strong> Covariates with p values below .11 (bayesian p, probability covariate is not null)</p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.03254</span>
+</td>
+<td style="text-align:left;">
+23.447
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01315</span>
+</td>
+<td style="text-align:left;">
+0.0135758
+</td>
+<td style="text-align:left;">
+0.0201212
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.0978</span>
+</td>
+<td style="text-align:left;">
+5.444
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0209697
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm3.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.10035</span>
+</td>
+<td style="text-align:left;">
+4.363
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0209697
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.3
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.10391</span>
+</td>
+<td style="text-align:left;">
+6.885
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0209697
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.10419</span>
+</td>
+<td style="text-align:left;">
+3.568
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01315</span>
+</td>
+<td style="text-align:left;">
+0.0135758
+</td>
+<td style="text-align:left;">
+0.0201212
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>parameter support:</strong></p>
+<hr />
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+support
+</th>
+<th style="text-align:left;">
+covariates
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;color: red !important;">
+good
+</td>
+<td style="text-align:left;color: red !important;">
+pval and rev MCMC
+</td>
+<td style="text-align:left;color: red !important;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: orange !important;">
+moderate
+</td>
+<td style="text-align:left;color: orange !important;">
+pval or rev MCMC
+</td>
+<td style="text-align:left;color: orange !important;">
+pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+poor
+</td>
+<td style="text-align:left;color: blue !important;">
+neither
+</td>
+<td style="text-align:left;color: blue !important;">
+lure - snow - temp - snow*temp - lure*snow
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>models with significant covariates:</strong></p>
+<hr />
+<p><br><br></p>
+<p><strong>waic:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+description
+</th>
+<th style="text-align:left;">
+WAIC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm1
+</td>
+<td style="text-align:left;">
+dot model
+</td>
+<td style="text-align:left;">
+78.02406
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.3
+</td>
+<td style="text-align:left;">
+pass
+</td>
+<td style="text-align:left;">
+86.57164
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>Density per 100km, significant models:</strong></p>
+<hr />
+<p><img src="CovDensitySum2019_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><br><br></p>
+<p><strong>top models density per 100sq km, significant covariates:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+species
+</th>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+n_effective
+</th>
+<th style="text-align:left;">
+mode
+</th>
+<th style="text-align:left;">
+hdi_89pct_lower
+</th>
+<th style="text-align:left;">
+hdi_89pct_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Bobcat
+</td>
+<td style="text-align:left;">
+sc.fm1
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:left;">
+323
+</td>
+<td style="text-align:left;">
+2.203
+</td>
+<td style="text-align:left;">
+1.12
+</td>
+<td style="text-align:left;">
+65.7
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>notes:</strong></p>
+<hr />
+<p>Dot model wins, probably further support against pass as a cov</p>
+<p>moderate to small amount of support for pass, lure has tiny amount of support lean toward rejecting, very</p>
+<p>few detections for multiple covs,</p>
+<hr />
+</div>
+<div id="coyote" class="section level3">
+<h3>Coyote</h3>
+<p><br><br></p>
+<p><strong>model metadata:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+survey
+</th>
+<th style="text-align:left;">
+n_sites
+</th>
+<th style="text-align:left;">
+detections
+</th>
+<th style="text-align:left;">
+rep_period
+</th>
+<th style="text-align:left;">
+model_aggragate_reps
+</th>
+<th style="text-align:left;">
+state_buffer
+</th>
+<th style="text-align:left;">
+iterations
+</th>
+<th style="text-align:left;">
+burnin
+</th>
+<th style="text-align:left;">
+thin
+</th>
+<th style="text-align:left;">
+sigma.mean
+</th>
+<th style="text-align:left;">
+sigma.sd
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Ritter Range
+</td>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:left;">
+43
+</td>
+<td style="text-align:left;">
+7 days
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:left;">
+2.5
+</td>
+<td style="text-align:left;">
+350000
+</td>
+<td style="text-align:left;">
+20000
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+0.865
+</td>
+<td style="text-align:left;">
+0.205
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>global models:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+141.695
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.76733</span>
+</td>
+<td style="text-align:left;">
+0.7723030
+</td>
+<td style="text-align:left;">
+0.8312121
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00532</span>
+</td>
+<td style="text-align:left;">
+9.415
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.11473</span>
+</td>
+<td style="text-align:left;">
+0.1120606
+</td>
+<td style="text-align:left;">
+0.1793333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.03859</span>
+</td>
+<td style="text-align:left;">
+2.442
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01479</span>
+</td>
+<td style="text-align:left;">
+0.0133939
+</td>
+<td style="text-align:left;">
+0.0370303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.99975</span>
+</td>
+<td style="text-align:left;">
+0.156
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0027879
+</td>
+<td style="text-align:left;">
+0.0002424
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">temp*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.65036</span>
+</td>
+<td style="text-align:left;">
+0.125
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0023636
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+280.278
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.76733</span>
+</td>
+<td style="text-align:left;">
+0.7723030
+</td>
+<td style="text-align:left;">
+0.8312121
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00133</span>
+</td>
+<td style="text-align:left;">
+30.657
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.11473</span>
+</td>
+<td style="text-align:left;">
+0.1120606
+</td>
+<td style="text-align:left;">
+0.1793333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00987</span>
+</td>
+<td style="text-align:left;">
+7.596
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01479</span>
+</td>
+<td style="text-align:left;">
+0.0133939
+</td>
+<td style="text-align:left;">
+0.0370303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.99699</span>
+</td>
+<td style="text-align:left;">
+0.145
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0027879
+</td>
+<td style="text-align:left;">
+0.0002424
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.23531</span>
+</td>
+<td style="text-align:left;">
+0.519
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00248</span>
+</td>
+<td style="text-align:left;">
+0.0033333
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>single covariate models:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm2.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00035</span>
+</td>
+<td style="text-align:left;">
+173.841
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.76733</span>
+</td>
+<td style="text-align:left;">
+0.7723030
+</td>
+<td style="text-align:left;">
+0.8312121
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00194</span>
+</td>
+<td style="text-align:left;">
+24.084
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.11473</span>
+</td>
+<td style="text-align:left;">
+0.1120606
+</td>
+<td style="text-align:left;">
+0.1793333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.33178</span>
+</td>
+<td style="text-align:left;">
+0.189
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01479</span>
+</td>
+<td style="text-align:left;">
+0.0133939
+</td>
+<td style="text-align:left;">
+0.0370303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.3
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.58872</span>
+</td>
+<td style="text-align:left;">
+0.214
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0027879
+</td>
+<td style="text-align:left;">
+0.0002424
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><br><br></p>
+<p><strong>All models:</strong> Covariates with p values below .11 (bayesian p, probability covariate is not null)</p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm4.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+198.074
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.76733</span>
+</td>
+<td style="text-align:left;">
+0.7723030
+</td>
+<td style="text-align:left;">
+0.8312121
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+141.695
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.76733</span>
+</td>
+<td style="text-align:left;">
+0.7723030
+</td>
+<td style="text-align:left;">
+0.8312121
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+280.278
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.76733</span>
+</td>
+<td style="text-align:left;">
+0.7723030
+</td>
+<td style="text-align:left;">
+0.8312121
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00035</span>
+</td>
+<td style="text-align:left;">
+173.841
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.76733</span>
+</td>
+<td style="text-align:left;">
+0.7723030
+</td>
+<td style="text-align:left;">
+0.8312121
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm3.1
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00037</span>
+</td>
+<td style="text-align:left;">
+204.154
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.76733</span>
+</td>
+<td style="text-align:left;">
+0.7723030
+</td>
+<td style="text-align:left;">
+0.8312121
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.2
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00108</span>
+</td>
+<td style="text-align:left;">
+78.070
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.76733</span>
+</td>
+<td style="text-align:left;">
+0.7723030
+</td>
+<td style="text-align:left;">
+0.8312121
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.2
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00126</span>
+</td>
+<td style="text-align:left;">
+32.861
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.11473</span>
+</td>
+<td style="text-align:left;">
+0.1120606
+</td>
+<td style="text-align:left;">
+0.1793333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00133</span>
+</td>
+<td style="text-align:left;">
+30.657
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.11473</span>
+</td>
+<td style="text-align:left;">
+0.1120606
+</td>
+<td style="text-align:left;">
+0.1793333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.0015</span>
+</td>
+<td style="text-align:left;">
+24.163
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.11473</span>
+</td>
+<td style="text-align:left;">
+0.1120606
+</td>
+<td style="text-align:left;">
+0.1793333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm3.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.0019</span>
+</td>
+<td style="text-align:left;">
+61.870
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.76733</span>
+</td>
+<td style="text-align:left;">
+0.7723030
+</td>
+<td style="text-align:left;">
+0.8312121
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00194</span>
+</td>
+<td style="text-align:left;">
+24.084
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.11473</span>
+</td>
+<td style="text-align:left;">
+0.1120606
+</td>
+<td style="text-align:left;">
+0.1793333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00532</span>
+</td>
+<td style="text-align:left;">
+9.415
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.11473</span>
+</td>
+<td style="text-align:left;">
+0.1120606
+</td>
+<td style="text-align:left;">
+0.1793333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm3.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00623</span>
+</td>
+<td style="text-align:left;">
+7.616
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.11473</span>
+</td>
+<td style="text-align:left;">
+0.1120606
+</td>
+<td style="text-align:left;">
+0.1793333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00987</span>
+</td>
+<td style="text-align:left;">
+7.596
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01479</span>
+</td>
+<td style="text-align:left;">
+0.0133939
+</td>
+<td style="text-align:left;">
+0.0370303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.2
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.01978</span>
+</td>
+<td style="text-align:left;">
+5.396
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01479</span>
+</td>
+<td style="text-align:left;">
+0.0133939
+</td>
+<td style="text-align:left;">
+0.0370303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.0205</span>
+</td>
+<td style="text-align:left;">
+4.228
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01479</span>
+</td>
+<td style="text-align:left;">
+0.0133939
+</td>
+<td style="text-align:left;">
+0.0370303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.03859</span>
+</td>
+<td style="text-align:left;">
+2.442
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.01479</span>
+</td>
+<td style="text-align:left;">
+0.0133939
+</td>
+<td style="text-align:left;">
+0.0370303
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>parameter support:</strong></p>
+<hr />
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+support
+</th>
+<th style="text-align:left;">
+covariates
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;color: red !important;">
+good
+</td>
+<td style="text-align:left;color: red !important;">
+pval and rev MCMC
+</td>
+<td style="text-align:left;color: red !important;">
+lure
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: orange !important;">
+moderate
+</td>
+<td style="text-align:left;color: orange !important;">
+pval or rev MCMC
+</td>
+<td style="text-align:left;color: orange !important;">
+snow
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+poor
+</td>
+<td style="text-align:left;color: blue !important;">
+neither
+</td>
+<td style="text-align:left;color: blue !important;">
+temp - pass - snow*temp - lure*snow
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>models with significant covariates:</strong></p>
+<hr />
+<p><br><br></p>
+<p><strong>waic:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+description
+</th>
+<th style="text-align:left;">
+WAIC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm3.0
+</td>
+<td style="text-align:left;">
+lure + snow
+</td>
+<td style="text-align:left;">
+292.9536
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.0
+</td>
+<td style="text-align:left;">
+lure
+</td>
+<td style="text-align:left;">
+299.8385
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.1
+</td>
+<td style="text-align:left;">
+snow
+</td>
+<td style="text-align:left;">
+302.0749
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm1
+</td>
+<td style="text-align:left;">
+dot model
+</td>
+<td style="text-align:left;">
+312.3275
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>Density per 100km, significant models:</strong></p>
+<hr />
+<p><img src="CovDensitySum2019_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<p><br><br></p>
+<p><strong>top models density per 100sq km, significant covariates:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+species
+</th>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+n_effective
+</th>
+<th style="text-align:left;">
+mode
+</th>
+<th style="text-align:left;">
+hdi_89pct_lower
+</th>
+<th style="text-align:left;">
+hdi_89pct_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Coyote
+</td>
+<td style="text-align:left;">
+sc.fm3.0
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:left;">
+1100
+</td>
+<td style="text-align:left;">
+7.790
+</td>
+<td style="text-align:left;">
+3.37
+</td>
+<td style="text-align:left;">
+26.39
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coyote
+</td>
+<td style="text-align:left;">
+sc.fm3.0
+</td>
+<td style="text-align:left;">
+lure
+</td>
+<td style="text-align:left;">
+16500
+</td>
+<td style="text-align:left;">
+-0.977
+</td>
+<td style="text-align:left;">
+-1.55
+</td>
+<td style="text-align:left;">
+-0.54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coyote
+</td>
+<td style="text-align:left;">
+sc.fm3.0
+</td>
+<td style="text-align:left;">
+snow
+</td>
+<td style="text-align:left;">
+16500
+</td>
+<td style="text-align:left;">
+0.470
+</td>
+<td style="text-align:left;">
+0.23
+</td>
+<td style="text-align:left;">
+0.72
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>notes:</strong></p>
+<hr />
+<hr />
+</div>
+<div id="longtailedweasel" class="section level3">
+<h3>LongTailedWeasel</h3>
+<p><br><br></p>
+<p><strong>notes:</strong></p>
+<hr />
+<p>model did not converge</p>
+<p>maybe a lack of spatial dependance</p>
+<p>modeled sigma around .12 km</p>
+<hr />
+</div>
+<div id="redfox" class="section level3">
+<h3>RedFox</h3>
+<p><br><br></p>
+<p><strong>model metadata:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+survey
+</th>
+<th style="text-align:left;">
+n_sites
+</th>
+<th style="text-align:left;">
+detections
+</th>
+<th style="text-align:left;">
+rep_period
+</th>
+<th style="text-align:left;">
+model_aggragate_reps
+</th>
+<th style="text-align:left;">
+state_buffer
+</th>
+<th style="text-align:left;">
+iterations
+</th>
+<th style="text-align:left;">
+burnin
+</th>
+<th style="text-align:left;">
+thin
+</th>
+<th style="text-align:left;">
+sigma.mean
+</th>
+<th style="text-align:left;">
+sigma.sd
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Ritter Range
+</td>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+7 days
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:left;">
+2.5
+</td>
+<td style="text-align:left;">
+350000
+</td>
+<td style="text-align:left;">
+20000
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0.14
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>global models:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.96052</span>
+</td>
+<td style="text-align:left;">
+0.288
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00164</span>
+</td>
+<td style="text-align:left;">
+0.0022424
+</td>
+<td style="text-align:left;">
+0.0041818
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.51931</span>
+</td>
+<td style="text-align:left;">
+1.958
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00976</span>
+</td>
+<td style="text-align:left;">
+0.0298182
+</td>
+<td style="text-align:left;">
+0.1090909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.39187</span>
+</td>
+<td style="text-align:left;">
+2.799
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00903</span>
+</td>
+<td style="text-align:left;">
+0.0252121
+</td>
+<td style="text-align:left;">
+0.1070909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.33493</span>
+</td>
+<td style="text-align:left;">
+105.59
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00073</span>
+</td>
+<td style="text-align:left;">
+0.3466061
+</td>
+<td style="text-align:left;">
+0.0858788
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">temp*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.70796</span>
+</td>
+<td style="text-align:left;">
+1.394
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00024</span>
+</td>
+<td style="text-align:left;">
+0.1620000
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.72262</span>
+</td>
+<td style="text-align:left;">
+1.21
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00164</span>
+</td>
+<td style="text-align:left;">
+0.0022424
+</td>
+<td style="text-align:left;">
+0.0041818
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00539</span>
+</td>
+<td style="text-align:left;">
+139.926
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00976</span>
+</td>
+<td style="text-align:left;">
+0.0298182
+</td>
+<td style="text-align:left;">
+0.1090909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.01073</span>
+</td>
+<td style="text-align:left;">
+159.438
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00903</span>
+</td>
+<td style="text-align:left;">
+0.0252121
+</td>
+<td style="text-align:left;">
+0.1070909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.36614</span>
+</td>
+<td style="text-align:left;">
+49.485
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00073</span>
+</td>
+<td style="text-align:left;">
+0.3466061
+</td>
+<td style="text-align:left;">
+0.0858788
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.54308</span>
+</td>
+<td style="text-align:left;">
+1.25
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00073</span>
+</td>
+<td style="text-align:left;">
+0.0027879
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>single covariate models:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm2.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.95165</span>
+</td>
+<td style="text-align:left;">
+0.21
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00164</span>
+</td>
+<td style="text-align:left;">
+0.0022424
+</td>
+<td style="text-align:left;">
+0.0041818
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.22818</span>
+</td>
+<td style="text-align:left;">
+1.157
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00976</span>
+</td>
+<td style="text-align:left;">
+0.0298182
+</td>
+<td style="text-align:left;">
+0.1090909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.33029</span>
+</td>
+<td style="text-align:left;">
+0.766
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00903</span>
+</td>
+<td style="text-align:left;">
+0.0252121
+</td>
+<td style="text-align:left;">
+0.1070909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.3
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.34389</span>
+</td>
+<td style="text-align:left;">
+94.176
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00073</span>
+</td>
+<td style="text-align:left;">
+0.3466061
+</td>
+<td style="text-align:left;">
+0.0858788
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><br><br></p>
+<p><strong>All models:</strong> Covariates with p values below .11 (bayesian p, probability covariate is not null)</p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00539</span>
+</td>
+<td style="text-align:left;">
+139.926
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00976</span>
+</td>
+<td style="text-align:left;">
+0.0298182
+</td>
+<td style="text-align:left;">
+0.1090909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00908</span>
+</td>
+<td style="text-align:left;">
+66.354
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00976</span>
+</td>
+<td style="text-align:left;">
+0.0298182
+</td>
+<td style="text-align:left;">
+0.1090909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.2
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.01071</span>
+</td>
+<td style="text-align:left;">
+67.149
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00976</span>
+</td>
+<td style="text-align:left;">
+0.0298182
+</td>
+<td style="text-align:left;">
+0.1090909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.01073</span>
+</td>
+<td style="text-align:left;">
+159.438
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00903</span>
+</td>
+<td style="text-align:left;">
+0.0252121
+</td>
+<td style="text-align:left;">
+0.1070909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.0
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.01583</span>
+</td>
+<td style="text-align:left;">
+81.04
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00903</span>
+</td>
+<td style="text-align:left;">
+0.0252121
+</td>
+<td style="text-align:left;">
+0.1070909
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.2
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.01694</span>
+</td>
+<td style="text-align:left;">
+105.938
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00903</span>
+</td>
+<td style="text-align:left;">
+0.0252121
+</td>
+<td style="text-align:left;">
+0.1070909
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>parameter support:</strong></p>
+<hr />
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+support
+</th>
+<th style="text-align:left;">
+covariates
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;color: red !important;">
+good
+</td>
+<td style="text-align:left;color: red !important;">
+pval and rev MCMC
+</td>
+<td style="text-align:left;color: red !important;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: orange !important;">
+moderate
+</td>
+<td style="text-align:left;color: orange !important;">
+pval or rev MCMC
+</td>
+<td style="text-align:left;color: orange !important;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+poor
+</td>
+<td style="text-align:left;color: blue !important;">
+neither
+</td>
+<td style="text-align:left;color: blue !important;">
+lure - snow - temp - pass - snow*temp - lure*snow
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>models with significant covariates:</strong></p>
+<hr />
+<p><br><br></p>
+<p><strong>waic:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+description
+</th>
+<th style="text-align:left;">
+WAIC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm1
+</td>
+<td style="text-align:left;">
+dot model
+</td>
+<td style="text-align:left;">
+32.60312
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>Density per 100km, significant models:</strong></p>
+<hr />
+<p><img src="CovDensitySum2019_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<p><br><br></p>
+<p><strong>top models density per 100sq km, significant covariates:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+species
+</th>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+n_effective
+</th>
+<th style="text-align:left;">
+mode
+</th>
+<th style="text-align:left;">
+hdi_89pct_lower
+</th>
+<th style="text-align:left;">
+hdi_89pct_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+RedFox
+</td>
+<td style="text-align:left;">
+sc.fm1
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:left;">
+466
+</td>
+<td style="text-align:left;">
+0.561
+</td>
+<td style="text-align:left;">
+0.56
+</td>
+<td style="text-align:left;">
+2.81
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>notes:</strong></p>
+<hr />
+<p>3 detecions, not much power</p>
+<hr />
+</div>
+<div id="whitetailedjackrabbit" class="section level3">
+<h3>WhiteTailedJackrabbit</h3>
+<p><br><br></p>
+<p><strong>model metadata:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+survey
+</th>
+<th style="text-align:left;">
+n_sites
+</th>
+<th style="text-align:left;">
+detections
+</th>
+<th style="text-align:left;">
+rep_period
+</th>
+<th style="text-align:left;">
+model_aggragate_reps
+</th>
+<th style="text-align:left;">
+state_buffer
+</th>
+<th style="text-align:left;">
+iterations
+</th>
+<th style="text-align:left;">
+burnin
+</th>
+<th style="text-align:left;">
+thin
+</th>
+<th style="text-align:left;">
+sigma.mean
+</th>
+<th style="text-align:left;">
+sigma.sd
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Ritter Range
+</td>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:left;">
+104
+</td>
+<td style="text-align:left;">
+7 days
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:left;">
+2.5
+</td>
+<td style="text-align:left;">
+350000
+</td>
+<td style="text-align:left;">
+20000
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+0.322
+</td>
+<td style="text-align:left;">
+0.094
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>global models:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.85773</span>
+</td>
+<td style="text-align:left;">
+0.066
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00242</span>
+</td>
+<td style="text-align:left;">
+0.0015152
+</td>
+<td style="text-align:left;">
+0.0021212
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.01017</span>
+</td>
+<td style="text-align:left;">
+4.552
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+0.0968485
+</td>
+<td style="text-align:left;">
+0.0010303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+9132.349
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+0.9878182
+</td>
+<td style="text-align:left;">
+0.6446061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.95576</span>
+</td>
+<td style="text-align:left;">
+0.224
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0054545
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">temp*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+483981.916
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+1.0000000
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.70985</span>
+</td>
+<td style="text-align:left;">
+0.061
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00242</span>
+</td>
+<td style="text-align:left;">
+0.0015152
+</td>
+<td style="text-align:left;">
+0.0021212
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.92357</span>
+</td>
+<td style="text-align:left;">
+0.039
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+0.0968485
+</td>
+<td style="text-align:left;">
+0.0010303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+115.292
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+0.9878182
+</td>
+<td style="text-align:left;">
+0.6446061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.82014</span>
+</td>
+<td style="text-align:left;">
+0.229
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0054545
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.05739</span>
+</td>
+<td style="text-align:left;">
+0.716
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0025455
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>single covariate models:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm2.0
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">lure</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.9542</span>
+</td>
+<td style="text-align:left;">
+0.041
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.00242</span>
+</td>
+<td style="text-align:left;">
+0.0015152
+</td>
+<td style="text-align:left;">
+0.0021212
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.93151</span>
+</td>
+<td style="text-align:left;">
+0.035
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+0.0968485
+</td>
+<td style="text-align:left;">
+0.0010303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+72.455
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+0.9878182
+</td>
+<td style="text-align:left;">
+0.6446061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.3
+</td>
+<td style="text-align:left;">
+<span style="     color: blue !important;">pass</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0.74913</span>
+</td>
+<td style="text-align:left;">
+0.250
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0054545
+</td>
+<td style="text-align:left;">
+0.0000000
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><br><br></p>
+<p><strong>All models:</strong> Covariates with p values below .11 (bayesian p, probability covariate is not null)</p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+bayes_p_val
+</th>
+<th style="text-align:left;">
+bayes_factor
+</th>
+<th style="text-align:left;">
+revMCMC_constrained
+</th>
+<th style="text-align:left;">
+revMCMC_unconstrained
+</th>
+<th style="text-align:left;">
+revMCMC_noInteractions
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+72.455
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+0.9878182
+</td>
+<td style="text-align:left;">
+0.6446061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.2
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+437.260
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+0.9878182
+</td>
+<td style="text-align:left;">
+0.6446061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+9132.349
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+0.9878182
+</td>
+<td style="text-align:left;">
+0.6446061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">temp*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+483981.916
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+1.0000000
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0</span>
+</td>
+<td style="text-align:left;">
+115.292
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+0.9878182
+</td>
+<td style="text-align:left;">
+0.6446061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm4.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">temp</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.00039</span>
+</td>
+<td style="text-align:left;">
+247.435
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+0.9878182
+</td>
+<td style="text-align:left;">
+0.6446061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+<span style="     color: red !important;">snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.01017</span>
+</td>
+<td style="text-align:left;">
+4.552
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">1</span>
+</td>
+<td style="text-align:left;">
+0.0968485
+</td>
+<td style="text-align:left;">
+0.0010303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm5.1
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">lure*snow</span>
+</td>
+<td style="text-align:left;">
+<span style="     color: orange !important;">0.05739</span>
+</td>
+<td style="text-align:left;">
+0.716
+</td>
+<td style="text-align:left;">
+<span style="     color: black !important;">0</span>
+</td>
+<td style="text-align:left;">
+0.0025455
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>parameter support:</strong></p>
+<hr />
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+support
+</th>
+<th style="text-align:left;">
+covariates
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;color: red !important;">
+good
+</td>
+<td style="text-align:left;color: red !important;">
+pval and rev MCMC
+</td>
+<td style="text-align:left;color: red !important;">
+snow - temp- snow*temp
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: orange !important;">
+moderate
+</td>
+<td style="text-align:left;color: orange !important;">
+pval or rev MCMC
+</td>
+<td style="text-align:left;color: orange !important;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: blue !important;">
+poor
+</td>
+<td style="text-align:left;color: blue !important;">
+neither
+</td>
+<td style="text-align:left;color: blue !important;">
+lure - pass - lure*snow
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>models with significant covariates:</strong></p>
+<hr />
+<p><br><br></p>
+<p><strong>waic:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+description
+</th>
+<th style="text-align:left;">
+WAIC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+lure + snow + temp + pass + temp * snow
+</td>
+<td style="text-align:left;">
+502.8138
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.2
+</td>
+<td style="text-align:left;">
+temp
+</td>
+<td style="text-align:left;">
+543.4455
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm1
+</td>
+<td style="text-align:left;">
+dot model
+</td>
+<td style="text-align:left;">
+557.3899
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sc.fm2.1
+</td>
+<td style="text-align:left;">
+snow
+</td>
+<td style="text-align:left;">
+561.0120
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>Density per 100km, significant models:</strong></p>
+<hr />
+<p><img src="CovDensitySum2019_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<p><br><br></p>
+<p><strong>top models density per 100sq km, significant covariates:</strong></p>
+<hr />
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+species
+</th>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:left;">
+covs
+</th>
+<th style="text-align:left;">
+n_effective
+</th>
+<th style="text-align:left;">
+mode
+</th>
+<th style="text-align:left;">
+hdi_89pct_lower
+</th>
+<th style="text-align:left;">
+hdi_89pct_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+WhiteTailedJackrabbit
+</td>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:left;">
+256
+</td>
+<td style="text-align:left;">
+13.374
+</td>
+<td style="text-align:left;">
+5.61
+</td>
+<td style="text-align:left;">
+79.17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WhiteTailedJackrabbit
+</td>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+lure
+</td>
+<td style="text-align:left;">
+16500
+</td>
+<td style="text-align:left;">
+-0.084
+</td>
+<td style="text-align:left;">
+-0.35
+</td>
+<td style="text-align:left;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WhiteTailedJackrabbit
+</td>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+snow
+</td>
+<td style="text-align:left;">
+16500
+</td>
+<td style="text-align:left;">
+0.467
+</td>
+<td style="text-align:left;">
+0.21
+</td>
+<td style="text-align:left;">
+0.70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WhiteTailedJackrabbit
+</td>
+<td style="text-align:left;">
+sc.fm5.0
+</td>
+<td style="text-align:left;">
+temp*snow
+</td>
+<td style="text-align:left;">
+16500
+</td>
+<td style="text-align:left;">
+1.103
+</td>
+<td style="text-align:left;">
+0.85
+</td>
+<td style="text-align:left;">
+1.41
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>notes:</strong></p>
+<hr />
+<p>need to run snow + temp + temp*snow</p>
+<p>vals are temp from the global model, including lure and pass..</p>
+<p>n effective is not great, could be not converging well,</p>
+<p>possibly poor trap dependence, modeled sigma is around .35 km</p>
+<hr />
+<pre><code>## Warning: Unknown or uninitialised column: `year`.
+
+## Warning: Unknown or uninitialised column: `year`.</code></pre>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
