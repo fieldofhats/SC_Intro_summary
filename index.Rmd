@@ -35,11 +35,14 @@ library(gridExtra)
 
 [Back to models/plots](https://fieldofhats.github.io/MesoResultsHomePage/ )
 
-### SC model
+# SC model
 
 <br>
 
-#### year tabs, SC model summaries (- stand by for results)
+## year tabs above, SC model selection details 
+#### significant covariates
+#### waic for significant models
+#### density and covariate estimates
 
 <br>
 
