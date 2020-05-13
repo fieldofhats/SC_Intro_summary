@@ -332,8 +332,8 @@ modeled sigma around .12 km
                     covariates =  c('snow - temp- snow\\*temp', 
                                     '', 
                                     'lure - pass - lure\\*snow'))
-  # lure, snow, temp, pass, snow*temp, lure*snow'
-  significance.table[[species[i]]]<-c(T,T,F,F,T,F)
+  #                                   lure, snow, temp, pass, snow*temp, lure*snow'
+  significance.table[[species[i]]]<-c(F,    T,    T,    F,    T,          F)
 
 ```
 
