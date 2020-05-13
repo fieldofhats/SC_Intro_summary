@@ -53,7 +53,7 @@ reversible jump MCMC,
 
 parameter MCMC samples table and graphs.
 
-[2016 model selection - stand by](https://fieldofhats.github.io/SC_model_2016/ )
+[2016 model selection](https://fieldofhats.github.io/SC_model_2016/ )
 
 [2017 model selection](https://fieldofhats.github.io/SC_model_2017/ )
 
@@ -74,7 +74,53 @@ cov.dat<-readRDS('./_data/2019_cov_significanceBySp.RDS')
 
 ### `r yr = '2016'; yr`
 
-stand by
+```{r echo = F, warning=F}
+### density estimates
+density.dat<-readRDS('./_data/2016_density_sigCov_species.RDS')
+cov.dat<-readRDS('./_data/2016_cov_significanceBySp.RDS')
+```
+
+<br><br>
+
+species density estimates (per 100 sqkm)
+
+****************************************************************************************************************
+```{r echo = F, warning=F}
+density.dat %>% 
+  filter(covs == 'D') %>% 
+  mutate(density = mode) %>% 
+  select(species, n_effective, density, hdi_89pct_lower, hdi_89pct_upper) %>% 
+  kable(align = 'l', escape = F) %>% 
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
+
+<br><br>
+
+
+<br><br>
+
+Covariates on detection (x = not significant)
+
+***********************************************************************************************************************
+
+```{r, echo = F, warning=F}
+
+cov.dat %>% 
+  #column_to_rownames(var = 'covs') %>% 
+  pivot_longer(-covs, names_to = 'species' , values_to = 'significance') %>% 
+  mutate(cov.vals = ifelse(significance == 0, 'x', NA)) %>% 
+  left_join(density.dat, by = c('species', 'covs')) %>% 
+  mutate(cov.vals = ifelse(significance == 1, mode, cov.vals)) %>% 
+  select(covs, species, cov.vals) %>%
+  mutate(cov.vals = ifelse(is.na(cov.vals), 'x', cov.vals)) %>% 
+  pivot_wider( values_from = cov.vals, names_from = species) %>%
+  column_to_rownames(var = 'covs') %>% 
+  kable(align = 'c', escape = F) %>% 
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left") 
+  
+
+
+```
 
 ### `r yr = '2017'; yr`
 

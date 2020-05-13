@@ -1,0 +1,239 @@
+---
+title: ""
+
+output: html_document
+---
+
+```{r setup, include=FALSE}
+#############################################
+############  summary
+###########   american marten
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rmarkdown)
+library(knitr)
+library(kableExtra)
+library(gridExtra)
+library(logspline)
+
+
+in.path<-"./_data/2016"
+in.files<-list.files(in.path)
+file.paths<-file.path(in.path, in.files)
+
+significance.table<-tibble(covs = rep(NA, 6))
+# significance.table$covs<-c('lure', 'snow', 'temp', 'pass', 'snow*temp', 'lure*snow')
+
+## inline render
+#
+render.file<-'./_CovDensitySum_child.Rmd'
+
+# join <- function(ls, sep = ", "){
+#     do.call(paste, append(ls, list(sep = sep)))
+# }
+# 
+# 
+# 
+# inline_render <- function(script_name, .params){
+#     suppressMessages(capture.output(rmarkdown::render(script_name, 
+#                                                       output_format = "rmarkdown::md_document",
+#                                                       params = .params), 
+#                                     file = "tmp"))
+#     cat(join(readLines(paste0(script_name, ".md")), "\n"))
+# 
+# }
+```
+
+```{r include = F}
+
+
+
+in.file<-in.files[1]
+sum.dat<-readRDS(file.path(in.path, in.file))
+parameters<-sum.dat$parameter.summary
+waic<-sum.dat$waic.table
+meta<-sum.dat$meta.table
+
+
+models.print<-waic %>% 
+  select(model, description)
+
+sum.dat$meta.table$sp
+
+
+covs<- parameters %>% 
+  filter(!is.na(Mean.rev.int.un)) %>% 
+  select(covs) %>% 
+  unique()
+
+## run once
+significance.table$covs <- unlist(covs)
+density.out<-parameters %>% 
+  select(model, covs, n_effective, mode, hdi_89pct_lower,hdi_89pct_upper) %>% 
+  slice(c(1)) %>% 
+  mutate(species = NA) %>% 
+  slice(-1)%>% 
+  select(species, everything())
+# rm(significance.table)
+
+### get species
+species <- file.path(in.path, in.files) %>%
+  map(readRDS)
+species<-unlist(lapply(species, function(x) x$meta.table$sp))
+
+#
+#render.file<-'./_2019CovDensitySum_child.Rmd'
+
+```
+
+<br><br><br><br><br>
+
+### Parameter summaries and model selection
+
+
+**Models evaluated:**
+
+*********************************************************************************************
+```{r echo = F}
+### models for the top of the page, before species tabs
+kable(models.print,align = 'l') %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
+
+<br><br><br>
+
+
+
+
+
+##  {.tabset}
+
+
+
+### `r i = 1; species[i]`
+
+```{r, echo = F}
+  in.file <- file.paths[i]
+  sig.models <-  c("sc.fm1")
+  support.tab<-tibble(level = c('good', 'moderate', 'poor'),
+                    support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
+                    covariates =  c('', 
+                                    '', 
+                                    'lure - snow - temp - pass - snow\\*temp - lure\\*snow'))
+  #                                   lure, snow, temp, pass, snow*temp, lure*snow'
+  significance.table[[species[i]]]<-c(F,     F,   F,    F,    F,          F)
+```
+```{r, child = render.file, as.is = T}
+
+```
+
+<br><br>
+
+**notes:**
+
+*********************************************************************************************************************************
+
+
+
+***************************************************************************************************************
+
+
+
+
+### `r i = 2; species[i]`
+
+```{r, echo = F}
+  in.file <- file.paths[i]
+  sig.models <-  c("sc.fm1")
+  support.tab<-tibble(level = c('good', 'moderate', 'poor'),
+                    support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
+                    covariates =  c('', 
+                                    '', 
+                                    'lure - snow - temp - pass - snow\\*temp - lure\\*snow'))
+ #                                   lure, snow, temp, pass, snow*temp, lure*snow'
+  significance.table[[species[i]]]<-c(F,     F,   F,    F,    F,          F)
+```
+```{r, child = render.file, as.is = T}
+
+```
+
+<br><br>
+
+**notes:**
+
+*********************************************************************************************************************************
+
+
+
+***************************************************************************************************************
+
+
+### `r i = 3; species[i]`
+
+```{r, echo = F}
+## coyote
+  in.file <- file.paths[i]
+  sig.models <-  c("sc.fm1", "sc.fm2.0")
+  support.tab<-tibble(level = c('good', 'moderate', 'poor'),
+                    support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
+                    covariates =  c('lure', 
+                                    '', 
+                                    'snow - temp - pass - snow\\*temp - lure\\*snow'))
+  #                                   lure, snow, temp, pass, snow*temp, lure*snow'
+  significance.table[[species[i]]]<-c(T,     F,   F,    F,    F,          F)
+```
+```{r, child = render.file, as.is = T}
+
+```
+
+<br><br>
+
+**notes:**
+
+*********************************************************************************************************************************
+
+poor support for snow, temp
+
+***************************************************************************************************************
+
+
+
+### `r i = 4; species[i]`
+
+```{r, echo = F}
+## wtj
+  in.file <- file.paths[i]
+  sig.models <-  c("sc.fm1", "sc.fm2.1","sc.fm2.2", "sc.fm5.0")
+  support.tab<-tibble(level = c('good', 'moderate', 'poor'),
+                    support = c('pval and rev MCMC', 'pval or rev MCMC', 'neither'),
+                    covariates =  c('', 
+                                    'snow - temp - snow\\*temp', 
+                                    'lure - pass- lure\\*snow'))
+ #                                   lure, snow, temp, pass, snow*temp, lure*snow'
+  significance.table[[species[i]]]<-c(F,     T,   T,    F,   T,          F)
+```
+```{r, child = render.file, as.is = T}
+
+```
+
+<br><br>
+
+**notes:**
+
+*********************************************************************************************************************************
+
+moderate support for snow*temp, have a look, 
+
+snow is the top model, so mabey no interaction
+
+***************************************************************************************************************
+
+
+
+
+```{r, echo = F}
+## output tables:
+ saveRDS(density.out, file.path('./_data', paste(meta$yr, 'density_sigCov_species.RDS', sep = '_')))
+ saveRDS(significance.table, file.path('./_data', paste(meta$yr, 'cov_significanceBySp.RDS', sep = '_')))
+
+```
