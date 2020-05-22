@@ -62,6 +62,167 @@ parameter MCMC samples table and graphs.
 [2019 model selection](https://fieldofhats.github.io/SC_model_2019/ )
 
 
+```{r, include = F}
+## load top models
+files<-list.files('./_data', pattern = '_density', full.names = T)
+density.dat.covs <- tibble(filename = files, data.year = substring(files,9,12)) %>% # create a data frame
+                                         # holding the file names
+  mutate(file_contents = map(filename,          # read files into
+           ~ readRDS(.)) # a new data column
+        ) %>% 
+  mutate(file_contents = map(file_contents, function(x) mutate(x,mode = as.character(mode)))) %>% 
+  unnest(cols = c('file_contents')) %>% 
+  select (-filename) %>% 
+  filter(covs == 'D') %>% 
+  arrange(species, data.year) %>% 
+  mutate(mode = as.numeric(ifelse(mode == 'err', hdi_89pct_lower, mode)),
+         sp_yr = as.factor(paste(species, data.year, sep = '_')))
+
+
+## load all models:
+## 2016 
+# in.files<-list.files('./_data/2016', full.names = T)
+
+yrs<-c('2016', '2017','2018', '2019')
+
+.sum.dat<-tibble(data.year = rep(NA,4), data.tab = NA)  
+
+i=1
+for (i in 1:length(yrs)){
+  in.files<-list.files(file.path('./_data',yrs[i]), full.names = T)
+  
+  sum.dat.temp <- tibble(filename = in.files) %>% # create a data frame
+  mutate(file_contents = map(filename,          # read files into
+           function(x) readRDS(x)$parameter.summary)) %>% # a new data column
+  mutate(file_contents = map(file_contents, function(x) mutate(x,bayes_f_N03 = as.character(bayes_f_N03)))) %>%
+  mutate(file_contents = map(file_contents, function(x) mutate(x,mode = as.character(mode)))) %>%
+  mutate(file_contents = map(file_contents, function(x) mutate(x,bayes_P = as.character(bayes_P)))) %>%
+  unnest(cols = c('file_contents')) %>% 
+  #select(-filename) %>% 
+  nest(data = everything())
+  
+  .sum.dat$data.year[i] <- yrs[i]
+  .sum.dat$data.tab[i] <- sum.dat.temp
+}
+
+sum.dat<-.sum.dat %>% 
+  unnest(data.tab) %>% 
+  unnest(data.tab) %>%
+  filter(param == 'D' & model == 'sc.fm1') %>% 
+  mutate(species = sapply(strsplit(filename, "_"), function(x) x[3])) %>% 
+  select(-filename) %>% 
+  arrange(species, data.year)
+
+sum.dat<-sum.dat %>% 
+  mutate(mode = ifelse(mode == 'err', hdi_89pct_lower, mode),
+         sp_yr = as.factor(paste(species, data.year, sep = '_'))) %>% 
+  mutate(mode = as.numeric(mode)) 
+
+
+
+  
+  
+
+
+```
+
+<br><br><br><br><br><br>
+
+## Density Estimates by Species, Year {.tabset}
+
+### top model plots:
+
+```{r echo = F, warning = F}
+x.lab.in<-"Density per 100sqkm"
+y.lab.in<-"species_year"
+
+ggplot(data = density.dat.covs, aes(y = sp_yr, x = mode) ) +
+  geom_errorbarh(aes(xmin = hdi_89pct_lower, xmax = hdi_89pct_upper)) +
+  geom_point(shape = 21, color = 'blue', fill = 'white' , size = 3)   +
+  xlab(x.lab.in) +
+  ylab(y.lab.in)
+```
+
+
+### top model plots zoom:
+
+```{r echo = F, warning = F}
+
+y.in<-"sp_yr"
+# y.in <-"species"
+
+x.lab.in<-"Density per 100sqkm"
+#y.lab.in<-"species_year"
+
+x.max<-50
+y.in<-sym(y.in)
+ggplot(data = density.dat.covs, aes(y = !!y.in, x = mode) ) +
+  geom_point(aes(x = hdi_89pct_lower, y = !!y.in), shape = '|', color = 'black', size = 3, position = position_nudge(y = .07)) +
+  geom_point(aes(x = ifelse(hdi_89pct_upper > x.max,50, hdi_89pct_upper), y = !!y.in), shape = ifelse(density.dat.covs$hdi_89pct_upper > x.max, '>','|'), color = 'black', size = 3, position = position_nudge(y = .07)) +
+  geom_segment(aes(x = hdi_89pct_lower, y = !!y.in, xend =ifelse(hdi_89pct_upper > x.max, 50,hdi_89pct_upper), yend = !!y.in)) +
+  geom_point(shape = 21, color = 'blue', fill = 'white' , size = 3) +
+  xlim(0,x.max) +
+  xlab(x.lab.in) +
+  ylab(y.lab.in)
+```
+
+
+### dot model plots:
+
+```{r echo = F, warning = F}
+x.lab.in<-"Density per 100sqkm"
+y.lab.in<-"species_year"
+
+ggplot(data = sum.dat, aes(y = sp_yr, x = mode) ) +
+  geom_errorbarh(aes(xmin = hdi_89pct_lower, xmax = hdi_89pct_upper)) +
+  geom_point(shape = 21, color = 'blue', fill = 'white' , size = 3)   +
+  xlab(x.lab.in) +
+  ylab(y.lab.in)
+```
+
+
+### dot model plots zoom:
+
+```{r echo = F, warning = F}
+
+y.in<-"sp_yr"
+#y.in <-"species"
+
+x.lab.in<-"Density per 100sqkm"
+y.lab.in<-"species_year"
+
+x.max<-50
+y.in<-sym(y.in)
+ggplot(data = sum.dat, aes(y = !!y.in, x = mode) ) +
+  geom_point(aes(x = hdi_89pct_lower, y = !!y.in), shape = '|', color = 'black', size = 3, position = position_nudge(y = .07)) +
+  geom_point(aes(x = ifelse(hdi_89pct_upper > x.max,50, hdi_89pct_upper), y = !!y.in), shape = ifelse(sum.dat$hdi_89pct_upper > x.max, '>','|'), color = 'black', size = 3, position = position_nudge(y = .07)) +
+  geom_segment(aes(x = hdi_89pct_lower, y = !!y.in, xend =ifelse(hdi_89pct_upper > x.max, 50,hdi_89pct_upper), yend = !!y.in)) +
+  geom_point(shape = 21, color = 'blue', fill = 'white' , size = 3) +
+  xlim(0,x.max) +
+  xlab(x.lab.in) +
+  ylab(y.lab.in)
+```
+
+## 
+
+<br>
+
+
+####plot notes
+
+top model plots:  
+density estimate is from the top model by waic  
+poorly converging models have been censored
+
+dot model plots:  
+estimates are from the dot (no covariate) model by species  
+include poorly converging models, poor models often have very wide confidence intervals  
+black bear did not converge very well, despite tight ci
+
+
+<br><br><br><br><br>
+
+
 ```{r echo = F, warning=F}
 ### density estimates
 density.dat<-readRDS('./_data/2019_density_sigCov_species.RDS')
